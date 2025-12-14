@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual env
+
+env/
+
+# Django
+
+
+# Environment variables
+.env
+
+# OS
+.DS_Store
+Thumbs.db

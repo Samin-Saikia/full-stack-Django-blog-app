@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Edit Post</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Changes</button>
+</form>
+
+<style>  
+    input:focus {
+    outline: none;
+    box-shadow: 0 0 5px #f39c12;
+}
+
+/* Button hover effect */
+button:hover {
+    background-color: #e67e22;
+}
+
+    input {
+      font-size: 25px;
+      
+      gap: 5px;
+      border: 1px solid black;
+      border-radius: 25px;
+      
+}
+
+button:hover {
+    background-color: #e67e22;
+}
+
+    
+    textarea{
+        font-size: 25px;
+      
+      gap: 5px;
+      border: 1px solid black;
+      border-radius: 25px;
+    }
+    button {
+        font-size: 14px;
+        padding: 10px;
+        background-color: #e67e22;
+        border-radius: 25px;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+</style>
+{% endblock %}

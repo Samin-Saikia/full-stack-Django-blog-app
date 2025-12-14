@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Platform</title>
+    /* RESET */
+  <style> * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f7fc;
+        color: #333;
+        line-height: 1.6;
+    }
+    a{
+        text-decoration: none;
+        font-size:2rem ;
+        color: #2575fc;
+    }
+    /* NAVBAR */
+    nav {
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        padding: 15px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        flex-wrap: wrap;
+    }
+    
+    .nav-left,
+    .nav-right {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    nav a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        padding: 8px 14px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+    }
+    
+    nav a:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+        transform: translateY(-1px);
+    }
+    
+    .user-info {
+        color: #fff;
+        font-size: 15px;
+        font-weight: 600;
+    }
+    
+    /* BUTTONS */
+    .btn {
+        background: linear-gradient(135deg, #f39c12, #f1c40f);
+        color: #fff;
+        font-size: 15px;
+        padding: 8px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .btn:hover {
+        background: linear-gradient(135deg, #e67e22, #f39c12);
+    }
+    
+    /* MAIN CONTENT */
+    .content-wrapper {
+        max-width: 1200px;
+        margin: 110px auto 30px;
+        padding: 25px;
+        background-color: #fff;
+        border-radius: 14px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* CARDS */
+    .card {
+        background: linear-gradient(135deg, #ff7e5f, #feb47b);
+        padding: 22px;
+        border-radius: 14px;
+        margin-bottom: 25px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    }
+    
+    .card h2 {
+        color: #fff;
+        font-size: 1.7rem;
+        margin-bottom: 8px;
+    }
+    
+    .card p {
+        color: #fff;
+        margin-bottom: 12px;
+    }
+    
+    /* MOBILE RESPONSIVE */
+    @media (max-width: 768px) {
+        nav {
+            padding: 12px 15px;
+        }
+    
+        .nav-left,
+        .nav-right {
+            width: 100%;
+            justify-content: center;
+        }
+    
+        .user-info {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+    
+        nav a,
+        .btn {
+            font-size: 14px;
+            padding: 7px 12px;
+        }
+    
+        .content-wrapper {
+            margin-top: 140px;
+            padding: 18px;
+        }
+    
+        .card {
+            padding: 18px;
+        }
+    
+        .card h2 {
+            font-size: 1.4rem;
+        }
+    }
+    
+    /* SMALL PHONES */
+    @media (max-width: 480px) {
+        nav a,
+        .btn {
+            width: 100%;
+            text-align: center;
+        }
+    
+        .nav-right {
+            gap: 6px;
+        }
+    
+        .content-wrapper {
+            margin-top: 160px;
+        }
+    }
+</style> 
+</head>
+<body>
+
+    <nav>
+        <div class="nav-left">
+            <a href="/">Home</a>
+        </div>
+    
+        <div class="nav-right">
+            {% if user.is_authenticated %}
+                <span class="user-info">Hi, {{ user.username }}</span>
+                <a href="{% url 'accounts:logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'accounts:login' %}">Login</a>
+                <a href="{% url 'accounts:register' %}">Register</a>
+            {% endif %}
+    
+            {% if user.is_authenticated and user.role == 'author' %}
+                <a href="{% url 'blog:create_post' %}" class="btn">New Post</a>
+            {% endif %}
+    
+            {% if user.is_authenticated %}
+                <a href="{% url 'blog:my_posts' %}" class="btn">My Posts</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <hr>
+
+    <div class="content-wrapper">
+        {% block content %}
+            <!-- Example Post Cards -->
+            <div class="card">
+                <h2>Post Title</h2>
+                <p>By {{ post.author.username }}</p>
+                <p>Published on {{ post.created_at }}</p>
+                <a href="{% url 'blog:edit_post' post.id %}" class="btn">Edit</a>
+                <a href="{% url 'blog:delete_post' post.id %}" class="btn">Delete</a>
+            </div>
+
+        {% endblock %}
+    </div>
+
+</body>
+</html>

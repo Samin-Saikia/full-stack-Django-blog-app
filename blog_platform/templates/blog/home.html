@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Latest Blogs</h1>
+
+{% for post in posts %}
+    <article>
+        <h2>
+            <a href="{% url 'blog:post_detail' post.slug %}">
+                {{ post.title }}
+            </a>
+        </h2>
+        <p>By {{ post.author.username }} | {{ post.created_at|date:"M d, Y" }}</p>
+        <p>{{ post.content|truncatewords:30 }}</p>
+    </article>
+    <hr>
+{% empty %}
+    <p>No posts yet.</p>
+{% endfor %}
+{% endblock %}
