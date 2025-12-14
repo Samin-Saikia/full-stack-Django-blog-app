@@ -96,11 +96,14 @@ Linux / Mac
 bash
 Copy code
 source venv/bin/activate
-3️⃣ Install dependencies
+
+#3️⃣ Install dependencies
+
 bash
 Copy code
 pip install -r requirements.txt
-4️⃣ Environment variables
+
+#4️⃣ Environment variables
 Create a .env file in the root:
 
 env
@@ -112,7 +115,7 @@ DB_USER=root
 DB_PASSWORD=your_password
 DB_HOST=localhost
 DB_PORT=3306
-5️⃣ Database migration
+#5️⃣ Database migration
 bash
 Copy code
 python manage.py makemigrations
@@ -121,7 +124,7 @@ python manage.py migrate
 bash
 Copy code
 python manage.py createsuperuser
-7️⃣ Run the server
+#7️⃣ Run the server
 bash
 Copy code
 python manage.py runserver
@@ -130,13 +133,13 @@ Visit:
 cpp
 Copy code
 http://127.0.0.1:8000/
-🔒 Security Notes
+#🔒 Security Notes
 .env is excluded using .gitignore
 
 SECRET_KEY is never exposed
 
 Role-based permissions enforced at view level
-👨‍💻 Author
+#👨‍💻 Author
 
 Samin Saikia
 Full-Stack Developer
